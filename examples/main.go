@@ -12,7 +12,7 @@ import (
 func main() {
 	fmt.Println("╔═══════════════════════════════════════════════════════════╗")
 	fmt.Println("║     Post-Quantum Cryptography with liboqs + CGO          ║")
-	fmt.Println("║     Replacement for CIRCL PQC (DRDO Research Project)    ║")
+	fmt.Println("║     Replacement for CIRCL PQC (QC)                        ║")
 	fmt.Println("║     Author: gauravpandey                                  ║")
 	fmt.Println("╚═══════════════════════════════════════════════════════════╝\n")
 
@@ -38,9 +38,9 @@ func main() {
 	fmt.Println(strings.Repeat("=", 65))
 	demoAllDilithium()
 
-	fmt.Println("\n✅ All demonstrations completed successfully!")
+	fmt.Println("\n All demonstrations completed successfully!")
 	fmt.Println("   liboqs + CGO successfully replaces CIRCL for PQC")
-	fmt.Println("   Ready for DRDO IoT deployment")
+	fmt.Println("   Ready for QC IoT deployment")
 }
 
 func showAvailableAlgorithms() {
@@ -75,13 +75,13 @@ func demoKyber() {
 	defer kem.Close()
 
 	details := kem.Details()
-	fmt.Printf("\n🔐 %s Algorithm Details:\n", details.Name)
+	fmt.Printf("\n %s Algorithm Details:\n", details.Name)
 	fmt.Printf("   Public Key:  %4d bytes\n", details.PublicKeyBytes)
 	fmt.Printf("   Secret Key:  %4d bytes\n", details.SecretKeyBytes)
 	fmt.Printf("   Ciphertext:  %4d bytes\n", details.CiphertextBytes)
 	fmt.Printf("   Shared Key:  %4d bytes\n\n", details.SharedSecretBytes)
 
-	fmt.Println("📡 Scenario: IoT Sensor ↔ Gateway Secure Channel\n")
+	fmt.Println(" Scenario: IoT Sensor ↔ Gateway Secure Channel\n")
 
 	fmt.Println("   [Gateway] Generating Kyber768 key pair...")
 	publicKey, secretKey, err := kem.GenerateKeyPair()
@@ -110,7 +110,7 @@ func demoKyber() {
 		hex.EncodeToString(gatewaySecret[:16]))
 
 	if hex.EncodeToString(sensorSecret) == hex.EncodeToString(gatewaySecret) {
-		fmt.Println("\n   🎉 SUCCESS! Shared secrets match perfectly")
+		fmt.Println("\n    SUCCESS! Shared secrets match perfectly")
 		fmt.Println("   ➜ Quantum-safe channel established")
 		fmt.Println("   ➜ Can now use for AES-256-GCM symmetric encryption")
 	}
@@ -124,14 +124,14 @@ func demoDilithium() {
 	defer sig.Close()
 
 	details := sig.Details()
-	fmt.Printf("\n✍️  %s Algorithm Details:\n", details.Name)
+	fmt.Printf("\n  %s Algorithm Details:\n", details.Name)
 	fmt.Printf("   Public Key:  %4d bytes\n", details.PublicKeyBytes)
 	fmt.Printf("   Secret Key:  %4d bytes\n", details.SecretKeyBytes)
 	fmt.Printf("   Signature:   %4d bytes (variable)\n\n", details.SignatureBytes)
 
-	fmt.Println("📝 Scenario: DRDO Firmware Update Authentication\n")
+	fmt.Println(" Scenario: QC Firmware Update Authentication\n")
 
-	fmt.Println("   [DRDO Server] Generating Dilithium3 signing keys...")
+	fmt.Println("   [QC Server] Generating Dilithium3 signing keys...")
 	publicKey, secretKey, err := sig.GenerateKeyPair()
 	if err != nil {
 		log.Fatal(err)
@@ -140,8 +140,8 @@ func demoDilithium() {
 		hex.EncodeToString(publicKey[:32]), len(publicKey))
 
 	firmware := []byte("FIRMWARE_v2.1.0|SHA256:abc123|TIMESTAMP:2025-12-02")
-	fmt.Printf("\n   [DRDO Server] Signing firmware update:\n")
-	fmt.Printf("   📦 %s\n", string(firmware))
+	fmt.Printf("\n   [QC Server] Signing firmware update:\n")
+	fmt.Printf("    %s\n", string(firmware))
 
 	signature, err := sig.Sign(firmware, secretKey)
 	if err != nil {
@@ -153,10 +153,10 @@ func demoDilithium() {
 	fmt.Println("\n   [IoT Device] Verifying firmware signature...")
 	err = sig.Verify(firmware, signature, publicKey)
 	if err != nil {
-		log.Fatal("❌ Verification failed:", err)
+		log.Fatal(" Verification failed:", err)
 	}
 	fmt.Println("   ✓ Signature verified successfully!")
-	fmt.Println("   ➜ Firmware authenticated by DRDO")
+	fmt.Println("   ➜ Firmware authenticated by QC")
 
 	// Test tampered firmware
 	fmt.Println("\n   [Security Test] Testing tampered firmware...")
@@ -179,7 +179,7 @@ func demoAllKyber() {
 	for _, variant := range variants {
 		kem, err := pqc.NewKEM(variant)
 		if err != nil {
-			fmt.Printf("%-11s│   -   │   -   │   -   │  -   │ ❌ Error\n", variant)
+			fmt.Printf("%-11s│   -   │   -   │   -   │  -   │  Error\n", variant)
 			continue
 		}
 
@@ -192,7 +192,7 @@ func demoAllKyber() {
 
 		status := "✓ Pass"
 		if !match {
-			status = "❌ Fail"
+			status = " Fail"
 		}
 
 		fmt.Printf("%-11s│ %4db │ %4db │ %4db │ %2db │ %s\n",
@@ -218,7 +218,7 @@ func demoAllDilithium() {
 	for _, variant := range variants {
 		sig, err := pqc.NewSignature(variant)
 		if err != nil {
-			fmt.Printf("%-12s│   -   │   -   │   -   │ ❌ Error\n", variant)
+			fmt.Printf("%-12s│   -   │   -   │   -   │  Error\n", variant)
 			continue
 		}
 
@@ -230,7 +230,7 @@ func demoAllDilithium() {
 
 		status := "✓ Pass"
 		if err != nil {
-			status = "❌ Fail"
+			status = " Fail"
 		}
 
 		fmt.Printf("%-12s│ %4db │ %4db │ %4db │ %s\n",
