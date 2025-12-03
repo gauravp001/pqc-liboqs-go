@@ -44,7 +44,7 @@ func main() {
 }
 
 func showAvailableAlgorithms() {
-	fmt.Println("📋 Available Post-Quantum Algorithms:\n")
+	fmt.Println(" Available Post-Quantum Algorithms:\n")
 
 	kems := pqc.ListEnabledKEMs()
 	fmt.Printf("   KEMs (%d):\n", len(kems))
