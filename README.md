@@ -17,7 +17,7 @@ Post-Quantum Cryptography Research
 
 ---
 
-## Overview
+## Overview.
 
 This library provides quantum-resistant cryptography for Go applications through CGO bindings to the Open Quantum Safe liboqs library.
 
