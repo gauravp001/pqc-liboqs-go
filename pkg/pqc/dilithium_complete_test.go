@@ -21,7 +21,7 @@ func TestDilithium3Complete(t *testing.T) {
 		t.Fatal("Failed to create signature:", err)
 	}
 	defer sig.Close()
-	fmt.Println("✅ Signature instance created successfully")
+	fmt.Println(" Signature instance created successfully")
 	
 	// Step 2: Generate signing keys
 	fmt.Println("\n[Step 2] Generating signing key pair...")
@@ -29,7 +29,7 @@ func TestDilithium3Complete(t *testing.T) {
 	if err != nil {
 		t.Fatal("Failed to generate key pair:", err)
 	}
-	fmt.Printf("✅ Signing keys generated:\n")
+	fmt.Printf(" Signing keys generated:\n")
 	fmt.Printf("   - Public Key:  %d bytes\n", len(publicKey))
 	fmt.Printf("   - Secret Key:  %d bytes\n", len(secretKey))
 	fmt.Printf("   - PK preview: %s...\n", hex.EncodeToString(publicKey[:16]))
@@ -42,7 +42,7 @@ func TestDilithium3Complete(t *testing.T) {
 	if err != nil {
 		t.Fatal("Failed to sign message:", err)
 	}
-	fmt.Printf("✅ Message signed successfully:\n")
+	fmt.Printf(" Message signed successfully:\n")
 	fmt.Printf("   - Signature:   %d bytes\n", len(signature))
 	fmt.Printf("   - Sig preview: %s...\n", hex.EncodeToString(signature[:16]))
 	
@@ -52,7 +52,7 @@ func TestDilithium3Complete(t *testing.T) {
 	if err != nil {
 		t.Fatal("Verification failed:", err)
 	}
-	fmt.Println("✅ Signature verified successfully!")
+	fmt.Println(" Signature verified successfully!")
 	fmt.Println("   ➜ Message is authentic")
 	
 	// Step 5: Test with tampered message (should fail)
@@ -63,7 +63,7 @@ func TestDilithium3Complete(t *testing.T) {
 	if err == nil {
 		t.Fatal("SECURITY FAILURE: Tampered message was accepted!")
 	}
-	fmt.Println("✅ Tampered message correctly REJECTED")
+	fmt.Println(" Tampered message correctly REJECTED")
 	fmt.Println("   ➜ Security working properly")
 	
 	// Step 6: Test with wrong signature (should fail)
@@ -75,18 +75,18 @@ func TestDilithium3Complete(t *testing.T) {
 	if err == nil {
 		t.Fatal("SECURITY FAILURE: Invalid signature was accepted!")
 	}
-	fmt.Println("✅ Invalid signature correctly REJECTED")
+	fmt.Println(" Invalid signature correctly REJECTED")
 	fmt.Println("   ➜ Security working properly")
 	
 	// Summary
 	fmt.Println("\n" + line)
-	fmt.Println("🎉 ML-DSA-65 (DILITHIUM3) COMPLETE TEST PASSED!")
+	fmt.Println(" ML-DSA-65 (DILITHIUM3) COMPLETE TEST PASSED!")
 	fmt.Println(line)
-	fmt.Println("✅ Key Generation:         WORKING")
-	fmt.Println("✅ Message Signing:        WORKING")
-	fmt.Println("✅ Signature Verification: WORKING")
-	fmt.Println("✅ Tamper Detection:       WORKING")
-	fmt.Println("✅ Security Validation:    WORKING")
-	fmt.Println("✅ Quantum-Safe Signatures: COMPLETE")
+	fmt.Println(" Key Generation:         WORKING")
+	fmt.Println(" Message Signing:        WORKING")
+	fmt.Println(" Signature Verification: WORKING")
+	fmt.Println(" Tamper Detection:       WORKING")
+	fmt.Println(" Security Validation:    WORKING")
+	fmt.Println(" Quantum-Safe Signatures: COMPLETE")
 	fmt.Println(line + "\n")
 }
